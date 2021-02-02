@@ -13834,15 +13834,15 @@ return jQuery;
                 $('#numberCard').addClass('error-validate');
             }
         }).on('focus', function (e) {
-            console.log('ddddd')
             if (e.target.value.split('_')[0].toString().replace('/', '').length === 19) {
-                $('#numberCard').val(e.target.value.substring(0, e.target.value.length - 1))
+                $('#numberCard').val('').addClass('error-validate');
+                checkPaymentSystem(e.target.value.split('_')[0].toString().replace('/', ''))
+                btnCard = false;
             }
         });
         $('#year-block').on('click', function () {
             $('#label-validity').removeClass('visual').addClass('hidden');
-            $('#card_exp_year').removeClass('error-validate');
-            $('#card_exp_year').focus()
+            $('#card_exp_year').focus().removeClass('error-validate');
         });
         $('#card_exp_year').on('focus', function (e) {
             $('#label-validity').removeClass('visual').addClass('hidden');
@@ -14004,9 +14004,17 @@ return jQuery;
         }
         return (sum % 10) == 0;
     };
+
     const validatorCvv = function () {
         $('#password_cvv').on('input', function (e) {
-            btnPassword = e.target.value.length === 3;
+            if (e.target.value.length <= 2) {
+                $('#password_cvv').addClass('error-validate');
+                btnPassword = false;
+            } else {
+                $('#password_cvv').removeClass('error-validate');
+                btnPassword = true;
+            }
+
         })
     };
     const checkFormAddCard = function () {
