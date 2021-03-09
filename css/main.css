@@ -61,7 +61,7 @@
 
 .header {
   height: 100px;
-  background: linear-gradient(90deg, #5A4BE6 0.26%, #73AFF7 47.1%, #93D0D9 99.8%); }
+  background: linear-gradient(90deg, #FFF1F9 0.26%, #FFF1F9 47.1%, #FFF1F9 99.8%); }
   @media (max-width: 576px) {
     .header {
       height: 60px; } }
@@ -75,17 +75,30 @@
         padding: 0 10px;
         height: 60px; } }
     .header .container .label {
-      color: #CFE0F4;
+      color: #4F4F4F;
       font-size: 33px;
       justify-content: center;
       width: 57%;
-      font-family: CoreSansG;
+      font-family: CoreSansG, sans-serif;
       margin: auto 0 auto 0;
       text-align: right; }
       @media (max-width: 576px) {
         .header .container .label {
           font-size: 28px;
           text-align: left; } }
+      .header .container .label__icon {
+        background: url("../img/logo.png") no-repeat;
+        width: 50%;
+        height: 50px;
+        display: flex;
+        background-size: contain; }
+        @media (max-width: 767px) {
+          .header .container .label__icon {
+            background-size: contain;
+            background-position: center; } }
+        @media (max-width: 576px) {
+          .header .container .label__icon {
+            width: 80%; } }
     .header .container .lang {
       display: flex;
       justify-content: flex-end;
@@ -94,20 +107,20 @@
       margin: auto; }
       .header .container .lang .line {
         display: block;
-        border-left: 2px solid #CFE0F4;
+        border-left: 2px solid #4F4F4F;
         height: 16px;
         position: relative;
         top: 2px; }
       .header .container .lang__item {
-        color: #CFE0F4;
+        color: #4F4F4F;
         padding: 0 10px;
-        font-family: CoreSansG;
+        font-family: CoreSansG, sans-serif;
         transition: all 0.3s ease-in-out;
         font-weight: 400; }
         .header .container .lang__item:hover {
           transition: all 0.3s ease-in;
           cursor: pointer;
-          color: #6188CA; }
+          color: #DC2B6F; }
 
 .position-input {
   position: relative;
@@ -118,7 +131,7 @@
     position: absolute;
     top: 49%;
     left: 20px;
-    font-family: CoreSansG; }
+    font-family: CoreSansG, sans-serif; }
     @media (max-width: 400px) {
       .position-input .label {
         font-size: 3.5vw;
@@ -129,13 +142,16 @@
     margin: 0 auto;
     width: 90%;
     color: #808080;
-    caret-color: #6188CA;
+    caret-color: #006699;
     background-color: white;
     transition: all 0.3s ease-in-out;
     font-size: 19px;
     outline: 0;
-    font-family: CoreSansG;
+    font-family: CoreSansG, sans-serif;
     padding: 20px 0 15px 20px; }
+    @media (max-width: 450px) {
+      .position-input .form-input {
+        padding: 20px 0 15px 15px; } }
 
 .container .head {
   font-size: 32px;
@@ -143,7 +159,7 @@
   text-align: center;
   color: #000000;
   padding: 70px 0 30px 0;
-  font-family: CoreSansG;
+  font-family: CoreSansG, sans-serif;
   font-weight: 300; }
   @media (max-width: 767px) {
     .container .head {
@@ -155,7 +171,7 @@
       padding: 20px 0 10px 0; } }
 
 .container .panel {
-  border: 1px solid #CFE0F4;
+  border: 1px solid #4F4F4F;
   border-radius: 4px;
   min-height: 450px; }
   @media (max-width: 767px) {
@@ -164,7 +180,7 @@
   .container .panel .form {
     max-width: 45%;
     margin: auto;
-    padding-top: 40px; }
+    padding: 40px 0; }
     @media (max-width: 992px) {
       .container .panel .form {
         max-width: 50%; } }
@@ -183,30 +199,54 @@
     .container .panel .form .text-number-card {
       padding: 10px 0;
       font-size: 18px;
-      font-family: CoreSansG;
+      font-family: CoreSansG, sans-serif;
       font-weight: normal; }
     .container .panel .form .position-input .payment-system-logo {
       position: absolute;
       right: 28px;
       top: 0;
       display: flex;
-      justify-content: flex-end;
+      justify-content: center;
       margin: auto;
       align-items: center;
       height: 100%;
-      width: 15%; }
+      width: 25%; }
+      @media (max-width: 450px) {
+        .container .panel .form .position-input .payment-system-logo {
+          justify-content: flex-end;
+          right: 16px;
+          width: 25%; } }
+      @media (max-width: 420px) {
+        .container .panel .form .position-input .payment-system-logo {
+          justify-content: flex-end;
+          right: 10px;
+          width: 25%; } }
       @media (max-width: 370px) {
         .container .panel .form .position-input .payment-system-logo {
           right: 5px;
-          top: -49px !important; } }
+          top: -51px !important; } }
       .container .panel .form .position-input .payment-system-logo .icon-card {
-        width: 40px;
-        height: 40px;
-        display: none; }
+        width: 60px;
+        height: 60px;
+        display: none;
+        background-size: cover !important; }
+        @media (max-width: 450px) {
+          .container .panel .form .position-input .payment-system-logo .icon-card {
+            width: 80px;
+            height: 60px; } }
+        @media (max-width: 320px) {
+          .container .panel .form .position-input .payment-system-logo .icon-card {
+            background-size: contain !important; } }
       .container .panel .form .position-input .payment-system-logo .icon-master-card {
-        background: url("../img/mastercard.png") center center/contain no-repeat; }
+        background: url("../img/mastercard.svg") center center/contain no-repeat; }
+        @media (max-width: 370px) {
+          .container .panel .form .position-input .payment-system-logo .icon-master-card {
+            transform: scale(0.9); } }
       .container .panel .form .position-input .payment-system-logo .icon-visa-card {
-        background: url("../img/visacard.png") center center/contain no-repeat; }
+        background: url("../img/visacard.svg") center center/contain no-repeat; }
+        @media (max-width: 370px) {
+          .container .panel .form .position-input .payment-system-logo .icon-visa-card {
+            transform: scale(0.9); } }
     .container .panel .form .position-validity {
       display: flex;
       justify-content: space-between;
@@ -229,15 +269,18 @@
       .container .panel .form .error-block .error__text {
         color: #f06979;
         font-size: 14px;
-        font-family: CoreSansG;
+        font-family: CoreSansG, sans-serif;
         display: none;
         padding: 0 0 10px 0; }
     .container .panel .form .information {
-      font-family: CoreSansG;
+      font-family: CoreSansG, sans-serif;
       font-size: 16px;
       width: 95%;
       color: #808080;
       text-align: justify; }
+      @media (max-width: 576px) {
+        .container .panel .form .information {
+          text-align: left; } }
       @media (max-width: 319px) {
         .container .panel .form .information {
           width: 100%; } }
@@ -258,9 +301,9 @@
   background-size: 1px 80px;
   transition: all 0.4s ease;
   position: relative;
-  font: 400 16px/19px CoreSansG;
+  font: 400 16px/19px CoreSansG, sans-serif;
   z-index: 1;
-  background: linear-gradient(167.72deg, #5A4BE6 -33.07%, #73AFF7 48.35%, #93D0D9 139.94%) !important;
+  background: linear-gradient(167.72deg, #0B6749 -33.07%, #0B6749 48.35%, #0B6749 139.94%) !important;
   cursor: pointer;
   min-height: 56px; }
   .btn-primary::before {
@@ -271,7 +314,7 @@
     bottom: 0;
     left: 0;
     border-radius: 4px;
-    background-image: linear-gradient(351.95deg, #5A4BE6 -48.61%, #73AFF7 33.69%, #93D0D9 126.27%);
+    background-image: linear-gradient(351.95deg, #67AB42 -48.61%, #67AB42 33.69%, #67AB42 126.27%);
     z-index: -1;
     transition: opacity 0.4s linear;
     opacity: 0; }
@@ -284,8 +327,11 @@
 
 .info-credit {
   padding: 10px 0 20px 0; }
+  @media (max-width: 370px) {
+    .info-credit {
+      padding: 10px 0 30px 0; } }
   .info-credit__text {
-    font-family: CoreSansG;
+    font-family: CoreSansG, sans-serif;
     font-size: 16px;
     line-height: 20px;
     padding: 5px 0;

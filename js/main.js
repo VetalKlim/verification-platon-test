@@ -13828,6 +13828,7 @@ return jQuery;
     let btnCard = false;
     let btnDate = false;
     let btnPassword = false;
+    let click = 0;
     const hiddenLabel = function () {
         $('#numberCard').on('blur', function (e) {
             if (e.target.value.split('_').toString().length === 0 || e.target.value.split('_').join('').toString().length <= 16) {
@@ -13835,9 +13836,7 @@ return jQuery;
             }
         }).on('focus', function (e) {
             if (e.target.value.split('_')[0].toString().replace('/', '').length === 19) {
-                $('#numberCard').val('').addClass('error-validate');
-                checkPaymentSystem(e.target.value.split('_')[0].toString().replace('/', ''))
-                btnCard = false;
+                checkPaymentSystem(e.target.value.split('_')[0].toString().replace('/', ''));
             }
         });
         $('#year-block').on('click', function () {
@@ -13847,9 +13846,6 @@ return jQuery;
         $('#card_exp_year').on('focus', function (e) {
             $('#label-validity').removeClass('visual').addClass('hidden');
             $('#card_exp_year').removeClass('error-validate');
-            if (e.target.value.split('_')[0].toString().replace('/', '').length === 4) {
-                $('#card_exp_year').val('')
-            }
         }).on('blur', function (e) {
             const date = e.target.value.split('_')[0].toString().replace('/', '');
             if (e.target.value.length === 0) {
@@ -13885,6 +13881,10 @@ return jQuery;
             checkCard(e)
         }).on('input', function (e) {
             checkCard(e)
+        }).on('focus', function (e) {
+            checkCard(e)
+        }).on('blur', function (e) {
+            checkCard(e)
         });
         $('#card_exp_year').on('change', function (e) {
             checkDate(e)
@@ -13895,23 +13895,19 @@ return jQuery;
     const checkDate = function (e) {
         const filterNumber = e.target.value.split('_')[0].toString().replace('/', '');
         validationDateCard(filterNumber);
-        if (filterNumber.length === 4) {
-            $('#password_cvv').focus();
-            btnDate = true;
-        } else {
-            btnDate = false;
-        }
+        btnDate = filterNumber.length === 4;
     };
     const checkCard = function (e) {
         const filterNumber = e.target.value.split('_')[0].toString().replace(/\s/g, '');
         checkPaymentSystem(filterNumber);
         validationNumberCard(filterNumber);
-        if (filterNumber.length === 16 && validationNumberCard(filterNumber)) {
-            $('#card_exp_year').focus();
-            btnCard = true;
-        } else {
-            btnCard = false;
-        }
+        btnCard = filterNumber.length === 16 && validationNumberCard(filterNumber);
+        setTimeout(() => {
+            if (filterNumber.length >= 15 && !validationNumberCard(filterNumber)) {
+                $('#numberCard').addClass('error-validate');
+                btnCard = false;
+            }
+        }, 500)
     };
 
     const maskInput = function () {
@@ -14014,20 +14010,46 @@ return jQuery;
                 $('#password_cvv').removeClass('error-validate');
                 btnPassword = true;
             }
-
         })
     };
     const checkFormAddCard = function () {
         $('#click-add-card').on('click', function () {
-            $("#form-add-card").submit(function (event) {
-                if (btnCard && btnDate && btnPassword) {
-                    return;
-                }
-                event.preventDefault();
-            });
+            if (click === 0) {
+                click = click + 1;
+                $("#form-add-card").submit(function (event) {
+                    $('#numberCard').focus();
+                    if (!btnCard) {
+                        $('#numberCard').addClass('error-validate');
+                        $('#err-card').removeClass('hidden').addClass('visual');
+                    }
+                    if (!btnDate) {
+                        $('#card_exp_year').addClass('error-validate');
+                    }
+                    if (btnCard && btnDate && btnPassword) {
+                        const date = new Date();
+                        const curr_year = date.getFullYear().toString().slice(0, 2).toString();
+                        const month = $('#card_exp_year').val().substr(0, 2);
+                        const year = curr_year + $('#card_exp_year').val().substr(2, 4);
+                        const input = $("<input>").attr("name", "card_exp_month").val(month).css({'display': 'none'});
+                        $('#form-add-card').append(input);
+                        $('#card_exp_year').inputmask('remove').removeAttr("disabled").val(year);
+                        $('#card_exp_year').val(year).inputmask("9999", {
+                            showMaskOnHover: false,
+                            removeMaskOnSubmit: true
+                        });
+                        setTimeout(() => {
+                            $('#card_exp_year').val(month + curr_year).inputmask("99/99", {
+                                showMaskOnHover: false,
+                                removeMaskOnSubmit: true
+                            });
+                        }, 1000);
+                    } else {
+                        event.preventDefault();
+                    }
+                });
+            }
         })
     };
-
     maskInput();
     nextInput();
     hiddenLabel();
@@ -14084,7 +14106,7 @@ return jQuery;
                 $('#err-cvv').removeClass('visual').addClass('hidden');
                 $('#password_cvv').removeClass('error-validate');
             }
-            if (e.target.value.length === 1 && e.target.value.length <= 2) {
+            if (e.target.value.length <= 2) {
                 $('#err-cvv').removeClass('hidden').addClass('visual');
                 $('#password_cvv').addClass('error-validate');
                 ccvCode = false
@@ -14095,8 +14117,6 @@ return jQuery;
         $('#click-payment').on('click', function () {
             $("#form-payment").submit(function (event) {
                 if (ccvCode) {
-                    let value = $('#number-card-user').html();
-                    $('#card_number').inputmask('remove').removeAttr("disabled").val(value);
                     this.submit();
                     return;
                 }
