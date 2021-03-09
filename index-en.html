@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/main.css">
+    <title>Adding a payment card</title>
+</head>
+<body>
+<div>
+    <header class="header">
+        <div class="container">
+            <div class="label">
+                <span class="label__icon"></span>
+            </div>
+            <div class="lang">
+                <a class="lang__item" href="index.html">RU</a>
+                <span class="line"></span>
+                <a class="lang__item" href="index-uk.html">UK</a>
+                <span class="line"></span>
+                <a class="lang__item" href="index-en.html">EN</a>
+            </div>
+        </div>
+    </header>
+    <main class="container">
+        <h3 class="head">Payment</h3>
+        <div class="panel">
+            <form class="form" action="/" id="form-add-card">
+                <div class="info-credit">
+                    <p class="info-credit__text">Contract № 568046</p>
+                    <p class="info-credit__text">Loan repayment in the amount of: :
+                        <span class="amount-credit">1050 грн</span>
+                    </p>
+                </div>
+                <h4 class="text-number-card">Card number</h4>
+                <div class="position-input">
+                    <input class="form-input" required id="numberCard" name="card_num" autocomplete=off inputmode="numeric"
+                           type="tel">
+                    <div class="payment-system-logo">
+                        <span class="icon-card icon-master-card" id="master_card"></span>
+                        <span class="icon-card icon-visa-card" id="visa_card"></span>
+                    </div>
+                </div>
+                <div class="position-validity">
+                    <div class="position-input validity" id="year-block">
+                        <label class="label" id="label-validity">Validity</label>
+                        <input class="form-input" required name="card_exp_year" id="card_exp_year" autocomplete=off
+                               inputmode="numeric" type="tel">
+                    </div>
+                    <div class="position-input validity" id="password-block">
+                        <label class="label" id="label-password">CVC code</label>
+                        <input class="form-input" required name="cvv2" type="password" inputmode="numeric" autocomplete=off
+                               id="password_cvv"
+                               maxlength="3">
+                    </div>
+                </div>
+                <div class="error-block">
+                    <span class="error__text" id="err-system">*System error</span>
+                    <span class="error__text" id="err-card">Please enter the correct card number</span>
+                </div>
+                <div class="information">
+                                <span class="information__text">
+                                  In case of unsuccessful payment, contact support
+                                </span>
+                </div>
+                <div class="btn-position">
+                    <button class="btn-primary" id="click-add-card">Pay</button>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
